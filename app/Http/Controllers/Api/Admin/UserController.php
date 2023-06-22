@@ -18,6 +18,7 @@ class UserController extends Controller
 
         return response()->json(['users' => $users]);
     }
+
     public function showOneUser(Request $request)
     {
         $user =  User::findOrFail($request->user_id);

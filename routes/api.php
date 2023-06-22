@@ -22,8 +22,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['jwt.auth']], function () {
     Route::post('logout', [ApiAuthController::class, 'logout']);
     Route::post('/admin/logout', [AuthController::class, 'logout']);
+    Route::post('/admin/create-user', [UserController::class, 'createUser']);
     Route::put('/admin/users/{user_id}/{action}', [UserController::class, 'blockUser']);
+    Route::get('/admin/users', [UserController::class, 'showAllUsers']);
+    Route::get('/admin/users/{user_id}', [UserController::class, 'showOneUser']);
 });
 Route::post('/login', [ApiAuthController::class, 'login']);
-Route::post('/admin/login', [AuthController::class, 'login']);
 Route::post('/register', [ApiAuthController::class, 'register']);
+Route::post('/admin/login', [AuthController::class, 'login']);
