@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function showAllUsers()
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(10);
+        $users = User::orderBy('created_at', 'desc')->get();
 
         if ($users->isEmpty()) {
             return response()->json(['users' => []]);

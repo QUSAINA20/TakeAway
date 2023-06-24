@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -32,18 +33,42 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        $user = User::where('name', $request->input('name'))
-            ->where('phone_number', $request->input('phone_number'))
+        $request->validate([
+            'name' => 'required|string',
+            'phone_number' => 'required|string',
+        ]);
+
+        $name = $request->input('name');
+        $phoneNumber = $request->input('phone_number');
+
+        $user = User::where('name', $name)
+            ->where('phone_number', $phoneNumber)
             ->first();
 
         if (!$user) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthorized',
+            ], 401);
         }
 
-        $token = auth()->login($user);
+        // Generate a token for the authenticated user
+        $token = Auth::login($user);
 
-        return $this->respondWithToken($token);
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+            'authorization' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
     }
+
+
+
+
+
     public function logout()
     {
         auth()->logout();
