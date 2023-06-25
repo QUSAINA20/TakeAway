@@ -23,8 +23,7 @@ class User extends Authenticatable implements HasMedia, JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'phone_number',
         'custom_id',
@@ -61,19 +60,23 @@ class User extends Authenticatable implements HasMedia, JWTSubject
         return [];
     }
 
-    public function orders(): HasMany {
+    public function orders(): HasMany
+    {
         return $this->hasMany(Order::class);
     }
 
-    public function codes(): HasMany {
+    public function codes(): HasMany
+    {
         return $this->hasMany(Code::class);
     }
 
-    public function reviews(): HasMany {
+    public function reviews(): HasMany
+    {
         return $this->hasMany(Review::class);
     }
 
-    public function roles(): BelongsToMany {
+    public function roles(): BelongsToMany
+    {
         return $this->belongsToMany(Role::class);
     }
 }

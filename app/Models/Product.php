@@ -23,15 +23,18 @@ class Product extends Model implements HasMedia
         'category_id',
     ];
 
-    public function category(): BelongsTo {
+    public function category(): BelongsTo
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function reviews(): HasMany {
+    public function reviews(): HasMany
+    {
         return $this->hasMany(Review::class);
     }
 
-    public function orderDetails(): HasMany {
+    public function orderDetails(): HasMany
+    {
         return $this->hasMany(OrderDetail::class);
     }
 }

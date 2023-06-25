@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
+            $table->datetime('date');
             $table->integer('price')->nullable();
             $table->enum('pay_method', ['cash', 'points'])->default('cash');
+            $table->double('products_number');
             $table->unsignedBigInteger('user_id');
             $table
                 ->foreign('user_id')

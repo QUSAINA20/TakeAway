@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AuthController;
+use App\Http\Controllers\Api\Admin\OrderController;
 use App\Http\Controllers\Api\Admin\UserController;
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
 use Illuminate\Http\Request;
@@ -27,6 +28,16 @@ Route::post('/admin/create-user', [AuthController::class, 'createUser']);
 Route::put('/admin/users/block-unblock', [UserController::class, 'blockUser']);
 Route::get('/admin/users', [UserController::class, 'showAllUsers']);
 Route::get('/admin/users/{user_id}', [UserController::class, 'showOneUser']);
+///////////////////////order////////////////////////////
+Route::post('/admin/create-order', [OrderController::class, 'create']);
+Route::get('/admin/orders', [OrderController::class, 'index']);
+Route::get('admin/orders/order/{id}', [OrderController::class, 'show']);
+Route::get('/admin/orders/current-day', [OrderController::class, 'getOrdersForCurrentDay']);
+Route::get('/admin/orders/current-day/cash', [OrderController::class, 'getOrdersForCurrentDayWithCash']);
+Route::get('/admin/orders/current-day/points', [OrderController::class, 'getOrdersForCurrentDayWithPoints']);
+
+
+
 Route::post('/login', [ApiAuthController::class, 'login']);
 Route::post('/register', [ApiAuthController::class, 'register']);
 Route::post('/admin/login', [AuthController::class, 'login']);
