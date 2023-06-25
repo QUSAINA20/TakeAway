@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('custom_id', 5)->unique();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('password');
+            $table->string('name');
+            $table->string('password')->default('password');
             $table->string('phone_number')->unique();
             $table->bigInteger('points')->default(100);
             $table->boolean('is_blocked')->default(false);
